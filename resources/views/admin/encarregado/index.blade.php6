@@ -1,0 +1,209 @@
+@extends('layouts._includes.merge.site')
+@section('titulo', 'Avea - Cadastrar Encarregado')
+@section('conteudo')
+
+    <style>
+        #increve_sa {
+            pointer-events: none;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .dimensao-padrao {
+            height: 230vh!important;
+            }
+
+        }
+        @media only screen and (max-width: 320px) {
+            .dimensao-padrao {
+            height: 260vh!important;
+            }
+
+        }
+
+    </style>
+    <div class="main-container" style=" overflow: visible;">
+        <header class="signup dimensao-padrao align-content-center-vertical">
+            <div class="background-image-holder parallax-background">
+                <img class="background-image" alt="Background Image" src="{{ asset('/site/img/index.encarregado.jpg') }}">
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+                        <h1 class="text-white">Bem-vindo(a) Encarregado(a) de Educação!<br>
+
+                            <p class="text-white lead">
+                                Os teus dados são protegidos pela lei de protecção de dados
+                                pessoais
+                            </p>
+                        </h1>
+                    </div>
+                </div>
+                <!--end of row-->
+
+                <div class="row">
+
+                    <div class="col-sm-12 text-center">
+                        <div class="photo-form-wrapper">
+
+                            <form action="{{ url('users/salvar') }}" method="post" class="mt-4"
+                                class="row" enctype="multipart/form-data">
+
+                                @csrf
+                                {{-- <div class="col-md-12">
+                                    <h4 class="text-white">
+                                        <b>Dados Pessoais</b>
+                                        <hr>
+                                    </h4>
+                                </div> --}}
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Carregue sua foto de Perfil</span>
+                                    <input type="file" name="foto" size="50MB image/*">
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Primeiro Nome</span>
+                                    <input class="signup-name-field text-black" type="text" placeholder="Primeiro Nome"
+                                        name="vc_primemiroNome" required autocomplete="off">
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Nomes do Meio</span>
+                                    <input class="signup-name-field text-black" type="text" name="vc_nome_meio"
+                                        placeholder="Nomes do Meio">
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Apelido</span>
+                                    <input class="signup-name-field text-black" name="vc_apelido" type="text"
+                                        placeholder="Apelido" required autocomplete="off">
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Número de bilhete de identidade</span>
+                                    <input class="signup-name-field text-black" type="text" name="vc_BI"
+                                        placeholder="Número de bilhete de identidade" minlength="14" maxlength="14" required
+                                        autocomplete="off">
+                                </div>
+
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Género</span>
+                                    <select class="text-black" name="vc_genero" required>
+                                        <option disabled value="" selected>Seleccione o género</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="feminino">Feminino</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Telefone</span>
+                                    <input class="signup-number-field text-black" type="number" placeholder="Telefone"
+                                        name="vc_telefone" required min="900000000" max="1000000000" maxlength="9"
+                                        autocomplete="off">
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white" id="label_data_nascimento">Data de Nascimento</span>
+                                    <input class="signup-date-field text-black" type="date" placeholder="Data de Nascimento"
+                                        max="{{ date('Y') - 18 }}-01-01" name="dt_data_nascimento" id="id_data_nascimento">
+                                </div>
+
+
+
+                                {{-- <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Nome de Utilizador</span>
+                                    <input class="signup-name-field text-black" type="text" placeholder="Nome de Utilizador"
+                                        name="vc_nomeUtilizador" required autocomplete="off">
+                                </div> --}}
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Endereço de Email</span>
+                                    <input class="form-email text-black" type="email" placeholder="Endereço de Email"
+                                        name="vc_email" required autocomplete="off">
+                                </div>
+
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white " id="span-senha">Senha</span>
+                                    <div class="div_input_password">
+                                        <input class="form-password text-black" type="password" placeholder="Senha"
+                                            id="password" name="password" required>
+                                        <span class="lnr lnr-eye"></span>
+                                        {{-- <span style="float: right;">A senha </span> --}}
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3 col-sm-6">
+                                    <span class="text-white">Confirmar a Senha</span>
+                                    <div class="div_input_password ">
+                                        <input id="password_confirm" class="form-password2 text-black" type="password"
+                                            placeholder="Confirmar a Senha" name="password_confirmation" required>
+                                        <span class="lnr lnr-eye view-pass-confirm"></span>
+
+                                    </div>
+
+                                </div>
+                                <input type="checkbox"  id="termo_assinado" name="termo" hidden>
+                                <div class="col-md-12">
+                                    <input type="submit" id="botao-proximo" disabled class="btn btn-primary btn-filled" value="Próximo">
+                                </div>
+
+
+                            </form>
+
+                        </div>
+                        <!--end of photo form wrapper-->
+                        <div class="text-centerb col-md-12">
+                            <span class="text-white">
+                                Já possui uma conta? <a href="{{ route('login') }}">Iniciar sessão ➞</a>
+                            </span>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="checkbox-fade fade-in-primary">
+                                <label>
+                                    
+                                 
+                                    <input type="checkbox"  id="termo">
+                                    <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                    <span class="text-inverse">Eu li e aceito os <a href="{{ route('site.termos') }}">Termos e Condições.</a></span>
+                                </label>
+                            </div>
+                        </div>
+
+                     
+                    </div>
+
+                </div>
+                <!--end of row-->
+
+            </div>
+            <!--end of container-->
+        </header>
+
+        {{-- <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
+                        <i class="icon icon-jumbo icon_info"></i>
+                        <div id="tweets" data-widget-id="492085717044981760">
+
+                        </div>
+                        <p>
+                            Após fazer o cadastro e o login, <strong>vá em actualizar os seus dados para completar o
+                                cadastro</strong> com os dados pessoais
+                        </p>
+                    </div>
+                </div>
+                <!--end of row-->
+            </div>
+            <!--end of container-->
+        </section> --}}
+
+    </div>
+
+
+    <script src="{{ asset('/js/sweetalert2.all.min.js') }}"></script>
+    @if (session('error'))
+        <script>
+            Swal.fire(
+                'Falha ao cadastrar usuário!',
+                'Email existente ou senhas diferentes ',
+                'error'
+            )
+        </script>
+    @endif
+@endsection
